@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <!-- do_not_remove: published-with-gradle-metadata -->
+<modelVersion>4.0.0</modelVersion>
+  <groupId>com.github.msx80</groupId>
+  <artifactId>omicron-basics</artifactId>
+  <version>0.0.2</version>
+  <name>msx80/omicron-basics</name>
+  <description>Some basic utilities for Omicron</description>
+  <url>https://github.com/msx80/omicron-basics</url>
+  <inceptionYear>2021</inceptionYear>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+</properties>
+	<repositories>
+		<repository>
+		    <id>jitpack.io</id>
+		    <url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+  <developers>
+    <developer>
+      <id>msx80</id>
+      <name>msx80</name>
+      <email></email>
+    </developer>
+  </developers>
+  <scm>
+    <connection>scm:git://github.com/msx80/omicron-basics.git</connection>
+    <developerConnection>scm:git://github.com/msx80/omicron-basics.git</developerConnection>
+    <url>git://github.com/msx80/omicron-basics.git</url>
+  </scm>
+  <dependencies>
+    <dependency>
+      <groupId>com.github.msx80</groupId>
+      <artifactId>omicron-api</artifactId>
+      <version>0.0.1</version>
+	  <scope>provided</scope>
+    </dependency>
+  </dependencies>
+</project>

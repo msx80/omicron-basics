@@ -2,7 +2,7 @@ package com.github.msx80.omicron.basicutils.gui;
 
 /**
  * A widget that is able to draw only a portion of itself.
- * It is allowed to print outside the given area is it's easier
+ * It is allowed to print outside the given area if it's easier
  * ie a list could print all items that falls within the region
  *
  */

@@ -27,7 +27,7 @@ public class TextDrawerFixed implements TextDrawer {
 		this.stepping = stepping;
 	}
 	@Override
-	public void print(String text, int x, int y, Align align)
+	public int print(String text, int x, int y, Align align)
 	{
 		int dx = 0;
 		if(align == Align.CENTER)
@@ -39,11 +39,11 @@ public class TextDrawerFixed implements TextDrawer {
 			dx = -width(text);
 		}
 		
-		print(text, x+dx, y);
+		return print(text, x+dx, y);
 	}
 	
 	@Override
-	public void print(String text, int x, int y)
+	public int print(String text, int x, int y)
 	{
 	
 		byte[] b = text.getBytes(charset);
@@ -55,6 +55,7 @@ public class TextDrawerFixed implements TextDrawer {
 			sys.draw(sheetNum, x+i*stepping, y, dx*charWidth, dy*charHeight, charWidth, charHeight, 0, 0);
 		
 		}
+		return b.length * stepping;
 	}
 	@Override
 	public int width(String text)

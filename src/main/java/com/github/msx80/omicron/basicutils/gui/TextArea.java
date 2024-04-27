@@ -36,6 +36,7 @@ public class TextArea extends BaseWidget implements KeyboardListener {
 	private TextAreaCache cache;
 	private Sys sys;
 	private TextDrawerFixed td;
+	private int color = Colors.WHITE;
 	
 	public TextArea(Sys sys, TextDrawerFixed td) {
 		super(Integer.MAX_VALUE, Integer.MIN_VALUE);
@@ -45,6 +46,16 @@ public class TextArea extends BaseWidget implements KeyboardListener {
 	}
 
 	
+	public int getColor() {
+		return color;
+	}
+
+
+	public void setColor(int color) {
+		this.color = color;
+	}
+
+
 	private void updateState()
 	{
 		
@@ -102,12 +113,12 @@ public class TextArea extends BaseWidget implements KeyboardListener {
 	public void draw() {
 
 		int dy = 0;
-
+		sys.color(this.color);
 		for (String s : cache.items) {
 			td.print(s, 0, dy);
 			dy+=td.height();
 		}
-
+		sys.color(Colors.WHITE);
 		ShapeDrawer.line(sys, cache.cursorX, cache.cursorY, cache.cursorX, cache.cursorY+td.getCharHeight(), 0, Colors.RED);
 		
 	}

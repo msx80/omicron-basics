@@ -7,6 +7,7 @@ public enum Easing {
 	LINEAR(t -> t),
 	QUADRATIC_IN(t -> t*t),
 	QUADRATIC_OUT(t -> t * (2d - t)),
+	CUBIC_OUT(t-> 1d - (t * t * t)),
 	BOUNCE_OUT(k -> {
 		if (k < (1d / 2.75d)) {
 			return 7.5625d * k * k;

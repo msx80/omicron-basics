@@ -35,6 +35,12 @@ public abstract class VariableHeightAbstractList<T> extends AbstractList<T> {
 		
 		public IndexCache(int forY, int forHeight, int startIdx, int endIdx, int startIdxPosY) {
 			super();
+			set(forY, forHeight, startIdx, endIdx, startIdxPosY);
+		}
+
+
+
+		private void set(int forY, int forHeight, int startIdx, int endIdx, int startIdxPosY) {
 			this.forY = forY;
 			this.forHeight = forHeight;
 			this.startIdx = startIdx;
@@ -45,6 +51,12 @@ public abstract class VariableHeightAbstractList<T> extends AbstractList<T> {
 		
 
 		public IndexCache() {
+			invalidate();
+		}
+
+
+
+		private void invalidate() {
 			// ensure it's never valid
 			forY = -1;
 			forHeight = -1;
@@ -70,7 +82,8 @@ public abstract class VariableHeightAbstractList<T> extends AbstractList<T> {
 	}
 	
 	private int currentTotalHeight;
-	private IndexCache idxCache;
+	private final IndexCache idxCache = new IndexCache();
+	private int[] heights;
 	
 	public VariableHeightAbstractList(int w) {
 		super(w, 10);
@@ -84,8 +97,11 @@ public abstract class VariableHeightAbstractList<T> extends AbstractList<T> {
 	
 	private int calcTotalHeight() {
 		int res = 0;
-		for (int i = 0; i < itemsCount(); i++) {
-			res = res + itemHeight(i);
+		heights = new int[itemsCount()];
+		for (int i = 0; i < heights.length ; i++) {
+			int h = itemHeight(i);
+			heights[i] = h;
+			res = res + h;
 		}
 		return res;
 	}
@@ -100,20 +116,20 @@ public abstract class VariableHeightAbstractList<T> extends AbstractList<T> {
 	public void draw(int fromx, int fromy, int width, int height) {
 		if(!idxCache.isValid(fromy, height))
 		{
-			idxCache = calcIdxCache(fromy, height);
+			calcIdxCache(fromy, height);
 		}
 		drawItems(idxCache.startIdx, idxCache.endIdx, idxCache.startIdxPosY);
 	}
 
 
 
-	private IndexCache calcIdxCache(int fromy, int height)
+	private void calcIdxCache(int fromy, int height)
 	{
 		int spaceLeft = fromy;
 		int idx = 0;
 		while(idx<itemsCount())
 		{
-			int ih = itemHeight(idx);
+			int ih = heights[idx];
 			if(spaceLeft<ih) break;
 			spaceLeft -= ih;
 			idx++;
@@ -124,7 +140,7 @@ public abstract class VariableHeightAbstractList<T> extends AbstractList<T> {
 		spaceLeft+=height;
 		while(idx<itemsCount())
 		{
-			int ih = itemHeight(idx);
+			int ih = heights[idx];
 			idx++; // increment before to include partial last element
 			if(spaceLeft<ih) break;
 			spaceLeft -= ih;
@@ -132,9 +148,8 @@ public abstract class VariableHeightAbstractList<T> extends AbstractList<T> {
 		int endIdx = idx;
 		
 		
-		IndexCache i = new IndexCache(fromy, height, startIdx, endIdx, startPosY);
+		idxCache.set(fromy, height, startIdx, endIdx, startPosY);
 		//System.out.println(i);
-		return i;
 	}
 
 	@Override
@@ -143,7 +158,7 @@ public abstract class VariableHeightAbstractList<T> extends AbstractList<T> {
 		int idx = 0;
 		while(true)
 		{
-			int ih = itemHeight(idx);
+			int ih = heights[idx];
 			if (y< ih) break;
 			idx++;
 			y-=ih;
@@ -165,23 +180,25 @@ public abstract class VariableHeightAbstractList<T> extends AbstractList<T> {
 		int curY = startY;
 		for (int i = s; i < siz; i++) 
 		{
-			drawItem(i, 0, curY, odd);
-			curY = curY + itemHeight(i);
+			drawItem(i, 0, curY, odd, heights[i]);
+			curY = curY + heights[i];
 			odd = !odd;
 		}
 	}
 
-	public abstract void drawItem(int idx, int x, int y, boolean odd);
+	public abstract void drawItem(int idx, int x, int y, boolean odd, int itemHeight);
 	
 	public abstract int itemHeight(int idx);
 	
 	
 	/**
 	 * Notify the list engine that items were added, removed or that they changed height.
+	 * This triggers recomputing heights and indexes so call it once after you're done with
+	 * all modifications.
 	 */
 	public void notifyItemChanges()
 	{
-		idxCache = new IndexCache();
+		idxCache.invalidate();
 		currentTotalHeight = calcTotalHeight();
 		this.setSize(w, currentTotalHeight);
 	}

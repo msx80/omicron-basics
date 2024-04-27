@@ -1,8 +1,10 @@
 package com.github.msx80.omicron.basicutils.gui;
 
 import com.github.msx80.omicron.api.Sys;
-
 import com.github.msx80.omicron.basicutils.Colors;
+import com.github.msx80.omicron.basicutils.gui.drawers.AlphaColor;
+import com.github.msx80.omicron.basicutils.gui.drawers.Background;
+import com.github.msx80.omicron.basicutils.gui.drawers.Backgrounded;
 
 
 /**
@@ -12,9 +14,11 @@ import com.github.msx80.omicron.basicutils.Colors;
  * processed.
  *
  */
-public class Modal extends ManagedParentWidget implements Clickable
+public class Modal extends ManagedParentWidget implements Clickable, Backgrounded
 {
 	
+
+	private Background bg = new AlphaColor(Colors.from(0, 0, 0, 64));
 
 	public Modal(Sys sys, int screenWidth, int screenHeight) {
 		super(sys, screenWidth, screenHeight);
@@ -33,8 +37,7 @@ public class Modal extends ManagedParentWidget implements Clickable
 
 	@Override
 	public void draw() {
-		sys.color(Colors.from(0, 0, 0, 64));
-		sys.fill(0, 0, 0, w, h, Colors.WHITE);
+		bg.draw(sys, 0, 0, w, h);
 		sys.color(Colors.WHITE);
 		super.draw();
 	}
@@ -51,4 +54,16 @@ public class Modal extends ManagedParentWidget implements Clickable
 	public void click(int px, int py) {
 		this.close();
 	}
+
+	public Background getBg() {
+		return bg;
+	}
+
+	public Modal setBg(Background bg) {
+		this.bg = bg;
+		return this;
+	}
+
+	
+	
 }

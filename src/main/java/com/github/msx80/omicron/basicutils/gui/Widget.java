@@ -11,7 +11,7 @@ import com.github.msx80.omicron.basicutils.Geometry;
  * Architecture:
  *  each Widget controls his dimensions and position (relative to the parent)
  *   
- *   x,y: position *relative to the parent*, to be added to the parent padding when drawing. (so if x=3 and parent padding = 2, then it will be drawn at 5)
+ *   x,y: position *relative to the parent*, 
  *   w,h: width and height.
  *   
  *   When any of x,y,w,h are changed, it should call the invalidate() method of the widget, which propagates the notification upward to parents. 
@@ -29,7 +29,6 @@ public interface Widget
 	/**
 	 * Draw the content of the widget. The view is already offsetted so that the top left corner is at 0,0, so a widget could
 	 * 1) draw the background filling 0,0,w,h
-	 * 2) draw the content at padding.left, padding,top (up to padding.right, padding.bottom) 
 	 */
 	public void draw();
 	
@@ -54,7 +53,7 @@ public interface Widget
 
 		
 	/**
-	 * Return the coordinate X of the widget in screen space, walking back the parent hyerarchy, handling positions and paddings 
+	 * Return the coordinate X of the widget in screen space, walking back the parent hierarchy, handling positions
 	 * @return
 	 */
 	default int getAbsoluteX()
@@ -64,7 +63,7 @@ public interface Widget
 	}
 	
 	/**
-	 * Return the coordinate Y of the widget in screen space, walking back the parent hyerarchy, handling positions and paddings 
+	 * Return the coordinate Y of the widget in screen space, walking back the parent hierarchy, handling positions
 	 * @return
 	 */
 	default int getAbsoluteY()

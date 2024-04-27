@@ -86,7 +86,7 @@ public class TextDrawerVariable implements TextDrawer {
 		}
 		return true;
 	}
-	public void print(String text, int x, int y, Align align)
+	public int print(String text, int x, int y, Align align)
 	{
 		int dx = 0;
 		if(align == Align.CENTER)
@@ -98,10 +98,10 @@ public class TextDrawerVariable implements TextDrawer {
 			dx = -width(text);
 		}
 		
-		print(text, x+dx, y);
+		return print(text, x+dx, y);
 	}
 	
-	public void print(String text, int x, int y)
+	public int print(String text, int x, int y)
 	{
 	
 		byte[] b = text.getBytes(charset);
@@ -121,6 +121,7 @@ public class TextDrawerVariable implements TextDrawer {
 			pos = pos + rw +1;
 		
 		}
+		return pos -1 ;
 	}
 	public int width(String text)
 	{
