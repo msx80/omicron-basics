@@ -176,6 +176,13 @@ public class Scroller extends OnlyChildParent implements Scrollable {
 		scrollX.scroll(i);
 		recalcScrollX();
 	}
+	
+	public void scrollAbsolute(int x, int y) {
+		scrollY.scroll = y;
+		scrollX.scroll = x;
+		recalcScrollY();
+		recalcScrollX();
+	}
 
 	private void recalcScrollY() {
 		scrollY.calc(getClientAreaHeight(), child.getH(), drawerV.getBorder());
@@ -280,4 +287,13 @@ public class Scroller extends OnlyChildParent implements Scrollable {
 		throw new RuntimeException("Can't remove child from scroller");
 	}
 
+	public int getScrollX()
+	{
+		return scrollX.scroll;
+	}
+	public int getScrollY()
+	{
+		return scrollY.scroll;
+	}
+	
 }

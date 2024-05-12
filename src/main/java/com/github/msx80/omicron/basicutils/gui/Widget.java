@@ -22,7 +22,7 @@ import com.github.msx80.omicron.basicutils.Geometry;
  * @author msx80
  *
  */
-public interface Widget 
+public interface Widget extends Placeable
 {
 
 

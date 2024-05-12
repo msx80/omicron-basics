@@ -21,12 +21,12 @@ public class AnimationManager {
 	
 	public Animation add(Easing easing, int ttl, Consumer<? super Animation> onEnd,	Consumer<? super Animation> onUpdate)
 	{
-		return this.add(new Animation(easing, ttl, onEnd, onUpdate));
+		return this.add(new CallbackAnimation(easing, ttl, onEnd, onUpdate));
 	}
 	
 	public Animation add(Easing easing, int ttl, Consumer<? super Animation> onEnd,	int start, int end, IntConsumer onUpdate )
 	{
-		return this.add(new Animation(easing, ttl, onEnd, a -> {
+		return this.add(new CallbackAnimation(easing, ttl, onEnd, a -> {
 			double f = ((double)end)*a.position + ((double)start)*(1d -a.position);
 			onUpdate.accept(  (int) f ); 
 		}));

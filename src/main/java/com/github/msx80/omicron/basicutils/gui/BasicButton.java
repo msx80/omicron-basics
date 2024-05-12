@@ -21,6 +21,14 @@ public class BasicButton extends BaseWidget implements Clickable {
 			onClick.event(this);
 		}
 	}
+
+	public Event getOnClick() {
+		return onClick;
+	}
+
+	public void setOnClick(Event onClick) {
+		this.onClick = onClick;
+	}
 	
 	
 
