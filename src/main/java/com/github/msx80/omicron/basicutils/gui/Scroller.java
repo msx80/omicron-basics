@@ -143,9 +143,16 @@ public class Scroller extends OnlyChildParent implements Scrollable {
 	}
 */
 
-	protected int getClientAreaWidth()
+	public int getClientAreaWidth()
 	{
 		return this.w-drawerV.getThickness();
+	}
+	
+	
+	public boolean isVisible(int x, int y)
+	{
+		return ( x >= getScrollX() ) && ( x < getScrollX()+getClientAreaWidth() ) &&
+				( y >= getScrollY() ) && ( y < getScrollY()+getClientAreaHeight() );
 	}
 	
 	@Override
@@ -163,7 +170,7 @@ public class Scroller extends OnlyChildParent implements Scrollable {
 		recalcScrollY();
 	}
 
-	private int getClientAreaHeight() {
+	public int getClientAreaHeight() {
 		return this.h-drawerH.getThickness();
 	}
 

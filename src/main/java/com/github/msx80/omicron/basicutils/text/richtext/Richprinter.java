@@ -25,4 +25,14 @@ public class Richprinter {
 	{
 		Richprint.print(line, x, y, ctx, align);
 	}
+	
+	public int width(Richtext line)
+	{
+		return line.width(ctx);
+	}
+	
+	public int height(Richtext line)
+	{
+		return line.height(ctx);
+	}
 }

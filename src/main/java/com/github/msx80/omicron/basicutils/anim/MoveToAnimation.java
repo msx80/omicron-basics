@@ -16,8 +16,5 @@ public class MoveToAnimation extends CoordAnimation {
 		p.setPosition(x, y);
 	}
 
-	@Override
-	public void end() {
-	}
 
 }

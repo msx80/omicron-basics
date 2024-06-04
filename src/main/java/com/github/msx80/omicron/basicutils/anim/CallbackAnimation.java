@@ -4,10 +4,10 @@ import java.util.function.Consumer;
 
 public class CallbackAnimation extends Animation {
 
-	private Consumer<? super Animation> onUpdate;
-	private Consumer<? super Animation> onEnd;
+	private Consumer<Animation> onUpdate;
+	
 
-	public CallbackAnimation(Easing easing, int ttl, Consumer<? super Animation> onEnd, Consumer<? super Animation> onUpdate) 
+	public CallbackAnimation(Easing easing, int ttl, Consumer<Animation> onEnd, Consumer<Animation> onUpdate) 
 	{
 		super(easing, ttl);
 		this.onUpdate = onUpdate;
@@ -22,12 +22,5 @@ public class CallbackAnimation extends Animation {
 
 	}
 
-	@Override
-	public void end() {
-		if (onEnd != null) {
-			onEnd.accept(this);
-		}		
-
-	}
 
 }

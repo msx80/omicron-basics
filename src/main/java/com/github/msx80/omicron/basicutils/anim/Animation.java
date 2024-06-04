@@ -1,5 +1,7 @@
 package com.github.msx80.omicron.basicutils.anim;
 
+import java.util.function.Consumer;
+
 public abstract class Animation 
 {
 	
@@ -10,6 +12,8 @@ public abstract class Animation
 	public double position; // position [0,1] , post easing
 	public double percentage; // percentage of completition [0,1], pre easing 
 	
+	Consumer<Animation> onEnd = e->{};
+	
 	public Animation(Easing easing, int ttl) {
 		this.easing = easing;
 		this.ttl = ttl;
@@ -19,8 +23,6 @@ public abstract class Animation
 	}
 
 	public abstract void update(double position);
-	public abstract void end();
-	
 	
 	public boolean finished()
 	{
@@ -48,9 +50,21 @@ public abstract class Animation
 
 		if (finished())
 		{
-			end();
+			onEnd.accept(this);
 		}
 		
 		return finished;
 	}
+	
+	public Animation addOnEnd(Consumer<Animation> e)
+	{
+		onEnd = onEnd.andThen(e);
+		return this;
+	}	
+	public Animation setOnEnd(Consumer<Animation> e)
+	{
+		onEnd = e;
+		return this;
+	}
+	
 }

@@ -129,10 +129,13 @@ public class MapDrawer {
 				for (int x = 0; x < twidth; x++) {
 					
 					int c = map.getTile(x+srctx, y+srcty);
-					int dx = c % tilesPerRowOnSheet;
-					int dy = c / tilesPerRowOnSheet;
-					
-					sys.draw(tileSheetNum, destx + x*tileWidth, desty + y*tileHeight, dx*tileWidth, dy*tileHeight, tileWidth, tileHeight, 0, 0);
+					if(c>=0)
+					{
+						int dx = c % tilesPerRowOnSheet;
+						int dy = c / tilesPerRowOnSheet;
+						
+						sys.draw(tileSheetNum, destx + x*tileWidth, desty + y*tileHeight, dx*tileWidth, dy*tileHeight, tileWidth, tileHeight, 0, 0);
+					}
 				}
 			}
 		} catch (Exception e) {

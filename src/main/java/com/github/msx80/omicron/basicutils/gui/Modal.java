@@ -16,9 +16,8 @@ import com.github.msx80.omicron.basicutils.gui.drawers.Backgrounded;
  */
 public class Modal extends ManagedParentWidget implements Clickable, Backgrounded
 {
-	
 
-	private Background bg = new AlphaColor(Colors.from(0, 0, 0, 64));
+	private Background bg = new AlphaColor(0, Colors.from(0, 0, 0, 64));
 
 	public Modal(Sys sys, int screenWidth, int screenHeight) {
 		super(sys, screenWidth, screenHeight);

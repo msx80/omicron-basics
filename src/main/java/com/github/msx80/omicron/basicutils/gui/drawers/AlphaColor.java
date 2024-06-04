@@ -6,9 +6,11 @@ import com.github.msx80.omicron.basicutils.Colors;
 public class AlphaColor implements Background {
 
 	private int color;
+	private int margin;
 
-	public AlphaColor(int color) {
+	public AlphaColor(int margin, int color) {
 		this.color = color;
+		this.margin = margin;
 	}
 
 	@Override
@@ -16,6 +18,11 @@ public class AlphaColor implements Background {
 		sys.color(color);
 		sys.fill(0, 0, 0, w, h, Colors.WHITE);
 
+	}
+
+	@Override
+	public int getMargin() {
+		return margin;
 	}
 
 }

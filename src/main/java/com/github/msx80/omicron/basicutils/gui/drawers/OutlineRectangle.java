@@ -21,4 +21,9 @@ public class OutlineRectangle implements Background {
 
 	}
 
+	@Override
+	public int getMargin() {
+		return 2;
+	}
+
 }

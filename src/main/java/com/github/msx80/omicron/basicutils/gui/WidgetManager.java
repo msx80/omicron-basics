@@ -10,6 +10,7 @@ public class WidgetManager extends ManagedParentWidget {
 	int scrollpx;   		// scroll start position		  
 	int scrollpy; 
 	int scrollTotal;	 	// total amount scrolled, to decide wether to consider it a click or a scroll
+	Widget over;			// widget the mouse is over
 	
 	public WidgetManager(Sys sys) {
 		super(sys, Integer.MAX_VALUE, Integer.MAX_VALUE);
@@ -89,6 +90,11 @@ public class WidgetManager extends ManagedParentWidget {
 					propagateclick(this, mx, my);
 				}
 			}
+			else
+			{
+				// mouse over something?
+				over = this.find(mx, my, true, a -> true);
+			}
 		}
 		
 		handleControllables(this);
@@ -109,4 +115,10 @@ public class WidgetManager extends ManagedParentWidget {
 		
 	}
 
+	public Widget getOver() {
+		return over;
+	}
+
+	
+	
 }

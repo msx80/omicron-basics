@@ -17,10 +17,5 @@ public class Parallel extends Animation {
 		if(!a2.finished()) a2.advance();
 	}
 
-	@Override
-	public void end() {
-		
-
-	}
 
 }
