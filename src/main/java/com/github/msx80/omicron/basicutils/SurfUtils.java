@@ -13,13 +13,13 @@ public class SurfUtils {
 
 	
 	
-	public static final void bufferToSurface(byte[] buffer, Sys sys, int surface, int sx, int sy, int w, int h)
+	public static final void bufferToSurface(byte[] buffer, int surface, int sx, int sy, int w, int h)
 	{
 		try {
 			ByteArrayInputStream bais = new ByteArrayInputStream(buffer);
 			try {
 				
-				loadSurface(sys, surface, sx, sy, w, h, bais);
+				loadSurface( surface, sx, sy, w, h, bais);
 			
 			} finally {
 				bais.close();
@@ -29,13 +29,13 @@ public class SurfUtils {
 		}
 	}
 
-	public static final byte[] surfaceToBuffer(Sys sys, int surface, int sx, int sy, int w, int h)
+	public static final byte[] surfaceToBuffer(int surface, int sx, int sy, int w, int h)
 	{
 		try {
 			ByteArrayOutputStream baos = new ByteArrayOutputStream(w*h*4);
 			try
 			{
-				saveSurface(sys, surface, sx, sy, w, h, baos);
+				saveSurface( surface, sx, sy, w, h, baos);
 				return baos.toByteArray();
 			}
 			finally
@@ -66,20 +66,20 @@ public class SurfUtils {
 	        out.write((v >>>  0) & 0xFF);
 	    }
 
-		public static void loadSurface(Sys sys, int surface, int sx, int sy, int w, int h, ByteArrayInputStream inp) throws IOException {
+		public static void loadSurface(int surface, int sx, int sy, int w, int h, ByteArrayInputStream inp) throws IOException {
 			for (int y = sy; y < h+sy; y++) {
 				for (int x = sx; x < w+sx; x++) {
 					int c = readInt(inp);
-					sys.fill(surface, x, y, 1, 1, c);
+					Sys.fill(surface, x, y, 1, 1, c);
 				}
 			}
 		}
 
 
-	public static void saveSurface(Sys sys, int surface, int sx, int sy, int w, int h, OutputStream out) throws IOException {
+	public static void saveSurface(int surface, int sx, int sy, int w, int h, OutputStream out) throws IOException {
 		for (int y = sy; y < h+sy; y++) {
 			for (int x = sx; x < w+sx; x++) {
-				int c = sys.getPix(surface, x, y);
+				int c = Sys.getPix(surface, x, y);
 				writeInt(out, c);
 			}
 			
@@ -90,12 +90,12 @@ public class SurfUtils {
 	/**
 	 * Copy a portion of image from srcSurf to destSurf scaling it by scale factor. Each src pixel will be a scale*scale block on dest.
 	 */
-	public static void zoom(Sys sys, int srcSurf, int destSurf, int srcx, int srcy, int destx, int desty, int w, int h, int scale)
+	public static void zoom(int srcSurf, int destSurf, int srcx, int srcy, int destx, int desty, int w, int h, int scale)
 	{
 		for (int x = 0; x < w; x++) {
 			for (int y = 0; y < h; y++) {
-				int c = sys.getPix(srcSurf, x + srcx, y + srcy);
-				sys.fill(destSurf, x*scale + destx, y*scale + desty, scale, scale, c);
+				int c = Sys.getPix(srcSurf, x + srcx, y + srcy);
+				Sys.fill(destSurf, x*scale + destx, y*scale + desty, scale, scale, c);
 			}
 		}
 	}

@@ -15,9 +15,9 @@ public class OutlineRectangle implements Background {
 	}
 
 	@Override
-	public void draw(Sys sys, int x, int y, int w, int h) {
-		sys.fill(0, x, y, w, h, backgroundColor);
-		ShapeDrawer.outline(sys, x, y, w, h, 0, borderColor);
+	public void draw(int x, int y, int w, int h) {
+		Sys.fill(0, x, y, w, h, backgroundColor);
+		ShapeDrawer.outline(x, y, w, h, 0, borderColor);
 
 	}
 

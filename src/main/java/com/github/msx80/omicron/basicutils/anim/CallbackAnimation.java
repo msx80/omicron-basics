@@ -4,10 +4,10 @@ import java.util.function.Consumer;
 
 public class CallbackAnimation extends Animation {
 
-	private Consumer<Animation> onUpdate;
+	private Consumer<IAnimation> onUpdate;
 	
 
-	public CallbackAnimation(Easing easing, int ttl, Consumer<Animation> onEnd, Consumer<Animation> onUpdate) 
+	public CallbackAnimation(Easing easing, int ttl, Consumer<IAnimation> onEnd, Consumer<IAnimation> onUpdate) 
 	{
 		super(easing, ttl);
 		this.onUpdate = onUpdate;

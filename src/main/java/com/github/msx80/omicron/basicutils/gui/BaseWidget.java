@@ -41,18 +41,12 @@ public abstract class BaseWidget implements Widget
 	 */
 	public abstract void draw();
 	
-	/**
-	 * called when the state of a widget is changed so that the parent may want to rearrange the layout.
-	 * it calls childInvalidated on the parent, if any.
-	 */
-	public void invalidate()
-	{
-		if(parent!=null) parent.childInvalidated(this);
-	}
 	
-	public void setParent(ParentWidget parent)
+	public BaseWidget parent(ParentWidget parent)
 	{
+		if(parent != null && this.parent != null) throw new RuntimeException("Widget already has a parent!");
 		this.parent = parent;
+		return this;
 	}
 	
 	public boolean isInside(int px, int py)
@@ -97,7 +91,7 @@ public abstract class BaseWidget implements Widget
 		return h;
 	}
 	
-	public BaseWidget setSize(int w, int h)
+	public BaseWidget size(int w, int h)
 	{
 		this.w = w;
 		this.h = h;
@@ -106,16 +100,17 @@ public abstract class BaseWidget implements Widget
 	}
 
 	@Override
-	public ParentWidget getParent() {
+	public ParentWidget parent() {
 		
 		return parent;
 	}
 
 	@Override
-	public void setPosition(int x, int y) {
+	public BaseWidget position(int x, int y) {
 		this.x = x;
 		this.y = y;
-		
+		invalidate();
+		return this;
 	}
 	
 	

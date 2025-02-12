@@ -1,8 +1,11 @@
 package com.github.msx80.omicron.basicutils.anim;
 
-import java.util.function.Consumer;
 
-public abstract class Animation 
+/**
+ * Classic tweening animation
+ *
+ */
+public abstract class Animation extends BaseAnimation implements IAnimation 
 {
 	
 	Easing easing;
@@ -11,8 +14,6 @@ public abstract class Animation
 	int frame; // current frame
 	public double position; // position [0,1] , post easing
 	public double percentage; // percentage of completition [0,1], pre easing 
-	
-	Consumer<Animation> onEnd = e->{};
 	
 	public Animation(Easing easing, int ttl) {
 		this.easing = easing;
@@ -24,14 +25,16 @@ public abstract class Animation
 
 	public abstract void update(double position);
 	
+	@Override
 	public boolean finished()
 	{
 		return frame >= ttl;
 	}
 	
-	
+	@Override
 	public boolean advance()
 	{
+		if(frame == 0 && onBegin != null) onBegin.accept(this);
 		
 		this.frame++;
 		boolean finished = finished();
@@ -56,15 +59,5 @@ public abstract class Animation
 		return finished;
 	}
 	
-	public Animation addOnEnd(Consumer<Animation> e)
-	{
-		onEnd = onEnd.andThen(e);
-		return this;
-	}	
-	public Animation setOnEnd(Consumer<Animation> e)
-	{
-		onEnd = e;
-		return this;
-	}
 	
 }

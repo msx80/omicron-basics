@@ -1,5 +1,7 @@
 package com.github.msx80.omicron.basicutils.text.richtext;
 
+import com.github.msx80.omicron.api.Sys;
+import com.github.msx80.omicron.basicutils.text.TextDrawer;
 import com.github.msx80.omicron.basicutils.text.TextDrawer.Align;
 
 public class ColoredString implements RichtextItem {
@@ -17,24 +19,24 @@ public class ColoredString implements RichtextItem {
 	}
 
 	@Override
-	public int width(RichtextDrawingContext ctx) 
+	public int width(TextDrawer ctx) 
 	{
-		return ctx.getDefaultTextDrawer().width(this.text);
+		return ctx.width(this.text);
 	}
 
 	@Override
-	public int draw(int sx, int sy, RichtextDrawingContext ctx) {
+	public int draw(int sx, int sy, TextDrawer ctx) {
 		int w = 0;
-		ctx.getSys().color(this.color);
+		Sys.color(this.color);
 		
-		w = ctx.getDefaultTextDrawer().width(this.text);
-		ctx.getDefaultTextDrawer().print(this.text,sx,sy, Align.LEFT);
+		w = ctx.width(this.text);
+		ctx.print(this.text,sx,sy, Align.LEFT);
 		return w;
 	}
 
 	@Override
-	public int height(RichtextDrawingContext ctx) {
-		return ctx.getDefaultTextDrawer().height();
+	public int height(TextDrawer ctx) {
+		return ctx.height();
 	}
 	
 	

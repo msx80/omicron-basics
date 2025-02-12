@@ -11,15 +11,13 @@ public class MultiLineLabel extends BaseWidget {
 
 	private String[] lines;
 	private TextDrawer td;
-	private Sys sys;
 	private int color;
 	
-	public MultiLineLabel(String text, int color, TextDrawer font, Sys sys, int w) 
+	public MultiLineLabel(String text, int color, TextDrawer font, int w) 
 	{
 		
 		super(w, 0);
 		this.td = font;
-		this.sys = sys;
 		this.color = color;
 		setText(text);
 	}
@@ -66,11 +64,11 @@ public class MultiLineLabel extends BaseWidget {
 	
 	@Override
 	public void draw() {
-		sys.color(this.color);
+		Sys.color(this.color);
 		for (int i = 0; i < lines.length; i++) {
 			td.print(lines[i], 0,i*(td.height()+1));
 		}
-		sys.color(Colors.WHITE);
+		Sys.color(Colors.WHITE);
 
 
 	}

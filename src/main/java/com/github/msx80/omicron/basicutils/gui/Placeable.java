@@ -5,11 +5,7 @@ public interface Placeable
 	int getX();
 	
 	int getY();
-	
 
-	public void setPosition(int x, int y);
-
-	
-	
+	public Placeable position(int x, int y);
 
 }

@@ -1,7 +1,7 @@
 package com.github.msx80.omicron.basicutils.gui;
 
 import com.github.msx80.omicron.api.Sys;
-
+import com.github.msx80.omicron.basicutils.gui.drawers.Background;
 import com.github.msx80.omicron.basicutils.gui.drawers.ScrollbarDrawer;
 
 /**
@@ -10,7 +10,8 @@ import com.github.msx80.omicron.basicutils.gui.drawers.ScrollbarDrawer;
  * Works by moving child X and Y coordinates so that all
  * calculation on relative child position still works
  */
-public class Scroller extends OnlyChildParent implements Scrollable {
+public class Scroller extends OnlyChildParent implements Scrollable 
+{
 	static enum ScrollingWhat {AREA, VERT_KNOB, HORIZ_KNOB};
 	static class ScrollBar {
 		int scroll;
@@ -79,30 +80,43 @@ public class Scroller extends OnlyChildParent implements Scrollable {
 	
 	private ScrollingWhat scrollingWhat;
 	private int offsetScrollKnob;
+	private boolean recomputing = false;
 	
-	public Scroller(Sys sys, int w, int h, Widget child, ScrollbarDrawer drawerV, ScrollbarDrawer drawerH) 
+	private Background bg;
+	
+	public Scroller(int w, int h, Widget child, ScrollbarDrawer drawerV, ScrollbarDrawer drawerH) 
 	{
-		super(sys, child, w, h);
+		super( child, w, h);
 		this.drawerV = drawerV;
 		this.drawerH = drawerH;
-		child.setPosition(0, 0);
+		child.position(0, 0);
 		childInvalidated(child);
 	}
 
 	@Override
 	public void childInvalidated(Widget widget) {
-		recalcScrollX();
-		recalcScrollY();
+		if(!recomputing)
+		{
+			recomputing  = true;
+			try
+			{
+				recalcScrollX();
+				recalcScrollY();
+			}
+			finally {
+				recomputing = false;
+			}
+		}
 	}
-
-	
 	
 	@Override
 	public void draw() {
+		
 		int areaWidth = getClientAreaWidth();
 		int areaHeight =  getClientAreaHeight();
-		sys.clip(this.getAbsoluteX(), this.getAbsoluteY(), areaWidth, areaHeight);
+		Sys.clip(this.getAbsoluteX(), this.getAbsoluteY(), areaWidth, areaHeight);
 		
+		if(bg!=null) bg.draw(0, 0, w, h);
 
 		/*sys.offset(-scrollX.scroll, -scrollY.scroll);
 		
@@ -110,7 +124,7 @@ public class Scroller extends OnlyChildParent implements Scrollable {
 		
 		sys.offset(scrollX.scroll, scrollY.scroll);
 */
-		sys.offset(child.getX(), child.getY());
+		Sys.offset(child.getX(), child.getY());
 		if(child instanceof PartialDrawable)
 		{
 			//throw new RuntimeException("Drawing of PartialDrawable not implemented yet");
@@ -120,14 +134,14 @@ public class Scroller extends OnlyChildParent implements Scrollable {
 		{
 			child.draw();
 		}
-		sys.offset(-child.getX(), -child.getY());
+		Sys.offset(-child.getX(), -child.getY());
 
 		
 		
-		sys.clip(0,0,0,0);
-		drawerV.drawVerticalScrollbar(sys, w-drawerV.getThickness(), 0,  h-drawerH.getThickness(), scrollY.curPos, scrollY.curLength);
+		Sys.clip(0,0,0,0);
+		drawerV.drawVerticalScrollbar(w-drawerV.getThickness(), 0,  h-drawerH.getThickness(), scrollY.curPos, scrollY.curLength);
 
-		drawerH.drawHorizontalScrollbar(sys, 0, h-drawerH.getThickness(), w-drawerV.getThickness(), scrollX.curPos, scrollX.curLength);
+		drawerH.drawHorizontalScrollbar(0, h-drawerH.getThickness(), w-drawerV.getThickness(), scrollX.curPos, scrollX.curLength);
 		
 		
 	}
@@ -194,12 +208,12 @@ public class Scroller extends OnlyChildParent implements Scrollable {
 	private void recalcScrollY() {
 		scrollY.calc(getClientAreaHeight(), child.getH(), drawerV.getBorder());
 		
-		child.setPosition(child.getX(), - scrollY.scroll);
+		child.position(child.getX(), - scrollY.scroll);
 		//child.y = - scrollY.scroll;
 	}
 	private void recalcScrollX() {
 		scrollX.calc(getClientAreaWidth(), child.getW(), drawerH.getBorder());
-		child.setPosition(- scrollX.scroll, child.getY());
+		child.position(- scrollX.scroll, child.getY());
 		//child.x = - scrollX.scroll;
 	}
 
@@ -302,5 +316,15 @@ public class Scroller extends OnlyChildParent implements Scrollable {
 	{
 		return scrollY.scroll;
 	}
+
+	public Background getBg() {
+		return bg;
+	}
+
+	public void setBg(Background bg) {
+		this.bg = bg;
+	}
+	
+	
 	
 }

@@ -1,5 +1,8 @@
 package com.github.msx80.omicron.basicutils.text.richtext;
 
+import com.github.msx80.omicron.api.Sys;
+import com.github.msx80.omicron.basicutils.text.TextDrawer;
+
 public class Icon implements RichtextItem {
 
 	int sheetNum;
@@ -18,18 +21,18 @@ public class Icon implements RichtextItem {
 	}
 
 	@Override
-	public int width(RichtextDrawingContext ctx) {
+	public int width(TextDrawer ctx) {
 		return w;
 	}
 
 	@Override
-	public int draw(int sx, int sy, RichtextDrawingContext ctx) {
-		ctx.getSys().draw(sheetNum, sx, sy, srcx, srcy, w, h, 0, 0);
+	public int draw(int sx, int sy, TextDrawer ctx) {
+		Sys.draw(sheetNum, sx, sy, srcx, srcy, w, h, 0, 0);
 		return w;
 	}
 
 	@Override
-	public int height(RichtextDrawingContext ctx) {
+	public int height(TextDrawer ctx) {
 		return h;
 	}
 

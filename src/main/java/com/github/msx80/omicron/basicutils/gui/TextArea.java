@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.github.msx80.omicron.api.Sys;
 import com.github.msx80.omicron.api.adv.AdvancedSys.KeyboardListener;
-
 import com.github.msx80.omicron.basicutils.Colors;
 import com.github.msx80.omicron.basicutils.ShapeDrawer;
 import com.github.msx80.omicron.basicutils.text.TextDrawerFixed;
@@ -34,13 +33,11 @@ public class TextArea extends BaseWidget implements KeyboardListener {
 	private int cursorPosition;
 	
 	private TextAreaCache cache;
-	private Sys sys;
 	private TextDrawerFixed td;
 	private int color = Colors.WHITE;
 	
-	public TextArea(Sys sys, TextDrawerFixed td) {
+	public TextArea(TextDrawerFixed td) {
 		super(Integer.MAX_VALUE, Integer.MIN_VALUE);
-		this.sys = sys;
 		this.td = td;
 		updateState();
 	}
@@ -113,13 +110,13 @@ public class TextArea extends BaseWidget implements KeyboardListener {
 	public void draw() {
 
 		int dy = 0;
-		sys.color(this.color);
+		Sys.color(this.color);
 		for (String s : cache.items) {
 			td.print(s, 0, dy);
 			dy+=td.height();
 		}
-		sys.color(Colors.WHITE);
-		ShapeDrawer.line(sys, cache.cursorX, cache.cursorY, cache.cursorX, cache.cursorY+td.getCharHeight(), 0, Colors.RED);
+		Sys.color(Colors.WHITE);
+		ShapeDrawer.line(cache.cursorX, cache.cursorY, cache.cursorX, cache.cursorY+td.getCharHeight(), 0, Colors.RED);
 		
 	}
 

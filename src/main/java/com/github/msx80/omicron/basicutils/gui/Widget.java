@@ -36,15 +36,16 @@ public interface Widget extends Placeable
 	 * called when the state of a widget is changed so that the parent may want to rearrange the layout.
 	 * it calls childInvalidated on the parent, if any.
 	 */
-	default void invalidate()
+	default Widget invalidate()
 	{
-		ParentWidget parent = getParent();
+		ParentWidget parent = parent();
 		if(parent!=null) parent.childInvalidated(this);
+		return this;
 	}
 	
-	public ParentWidget getParent();
+	public ParentWidget parent();
 
-	public void setParent(ParentWidget parent);
+	public Widget parent(ParentWidget parent);
 	
 	default boolean isInside(int px, int py)
 	{
@@ -58,7 +59,7 @@ public interface Widget extends Placeable
 	 */
 	default int getAbsoluteX()
 	{
-		ParentWidget parent = getParent();
+		ParentWidget parent = parent();
 		return getX()+(parent == null ? 0 : parent.getAbsoluteX());
 	}
 	
@@ -68,7 +69,7 @@ public interface Widget extends Placeable
 	 */
 	default int getAbsoluteY()
 	{
-		ParentWidget parent = getParent();
+		ParentWidget parent = parent();
 		return getY()+(parent == null ? 0 : parent.getAbsoluteY());
 	}
 
@@ -80,7 +81,7 @@ public interface Widget extends Placeable
 
 	int getH();
 	
-	Widget setSize(int w, int h);
+	Widget size(int w, int h);
 	
 	default Widget find(int px, int py, boolean deep, Predicate<? super Widget> filter)
 	{
@@ -123,9 +124,17 @@ public interface Widget extends Placeable
 		return null;
 	}
 
-	public void setPosition(int x, int y);
+	public Widget position(int x, int y);
 
 	
-	
+	default int getMidpointX()
+	{
+		return getX()+getW()/2;
+	}
+
+	default int getMidpointY()
+	{
+		return getY()+getH()/2;
+	}
 
 }

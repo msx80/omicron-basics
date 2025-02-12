@@ -13,8 +13,8 @@ public class SolidColor implements Background {
 	}
 
 	@Override
-	public void draw(Sys sys, int x, int y, int w, int h) {
-		sys.fill(0, 0, 0, w, h, color);
+	public void draw(int x, int y, int w, int h) {
+		Sys.fill(0, 0, 0, w, h, color);
 
 	}
 
@@ -23,4 +23,10 @@ public class SolidColor implements Background {
 		return margin;		
 	}
 
+	public SolidColor of(int c)
+	{
+		return new SolidColor(0, c); 
+				
+	}
+	
 }

@@ -3,19 +3,17 @@ package com.github.msx80.omicron.basicutils.gui;
 import java.util.Arrays;
 import java.util.List;
 
-import com.github.msx80.omicron.api.Sys;
-
 public abstract class OnlyChildParent extends ParentWidget {
 
 	final Widget child;
 	final private List<Widget> children;
 
-	public OnlyChildParent(Sys sys, Widget child, int w, int h) 
+	public OnlyChildParent(Widget child, int w, int h) 
 	{
-		super(sys, w, h);
+		super( w, h);
 		this.child = child;
 		this.children = Arrays.asList(child);
-		this.child.setParent(this);
+		this.child.parent(this);
 	}
 	
 	@Override

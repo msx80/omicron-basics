@@ -1,8 +1,8 @@
 package com.github.msx80.omicron.basicutils.gui;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.function.Predicate;
 
 import com.github.msx80.omicron.api.Sys;
 
@@ -16,19 +16,16 @@ import com.github.msx80.omicron.api.Sys;
  */
 public abstract class ParentWidget extends BaseWidget implements Iterable<Widget> {
 
-	protected Sys sys;
-	
-	public ParentWidget(Sys sys, int w, int h) {
+	public ParentWidget(int w, int h) {
 		super(w, h);
-		this.sys = sys;
 	}
 
 	public void drawChildren() {
 		//sys.offset(padding.top, padding.left);
 		for (Widget w : this) {
-			sys.offset(w.getX(), w.getY());
+			Sys.offset(w.getX(), w.getY());
 			w.draw();
-			sys.offset(-w.getX(), -w.getY());
+			Sys.offset(-w.getX(), -w.getY());
 		}
 		//sys.offset(-padding.top, -padding.left);
 	}
@@ -79,6 +76,15 @@ public abstract class ParentWidget extends BaseWidget implements Iterable<Widget
 	}
 
 	public abstract Widget remove(Widget w) ;
+	
+	
+	public void removeAll()
+	{
+		List<Widget> ch = new ArrayList<>(this.children()); 
+		for (Widget widget : ch) {
+			this.remove(widget);
+		}
+	}
 
 	
 }

@@ -9,29 +9,29 @@ public class ShapeDrawer
 		void consumer(int x, int y);
 	}
 
-	public static void outline(Sys sys, int x, int y, int w, int h, int sheet, int color)
+	public static void outline(int x, int y, int w, int h, int sheet, int color)
 	{
 	
-		sys.fill(sheet, x+1, y, w-2, 1, color);
-		sys.fill(sheet, x+1, y+h-1, w-2, 1, color);
-		sys.fill(sheet, x, y, 1, h, color);
-		sys.fill(sheet, x+w-1, y, 1, h, color);
+		Sys.fill(sheet, x+1, y, w-2, 1, color);
+		Sys.fill(sheet, x+1, y+h-1, w-2, 1, color);
+		Sys.fill(sheet, x, y, 1, h, color);
+		Sys.fill(sheet, x+w-1, y, 1, h, color);
 		
 	}
 
-	public static void rect(Sys sys, int x, int y, int w, int h, int sheet, int color)
+	public static void rect(int x, int y, int w, int h, int sheet, int color)
 	{
 	
-		sys.fill(sheet, x, y, w, h, color);
+		Sys.fill(sheet, x, y, w, h, color);
 		
 	}
 	
 	
-	public static void line(final Sys sys, int x1, int y1, int x2, int y2, final int sheet, final int color) {
+	public static void line(int x1, int y1, int x2, int y2, final int sheet, final int color) {
 		line(x1, y1, x2, y2, new PointConsumer() {
 			@Override
 			public void consumer(int x, int y) {
-				sys.fill(sheet, x, Math.round(y), 1, 1, color);
+				Sys.fill(sheet, x, Math.round(y), 1, 1, color);
 				
 			}
 		} );

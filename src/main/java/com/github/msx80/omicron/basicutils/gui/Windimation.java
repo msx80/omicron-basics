@@ -27,16 +27,14 @@ public class Windimation<T> extends BaseWidget implements Controllable {
 	
 	private int position = 0;
 	private int selected = 0;
-	private Sys sys;
 	private Selector<T> onSelect;
 	
 	private CursorDrawer cursorDrawer;
 	private ItemDrawer<T> itemDrawer;
 	private int itemHeight;
 	
-	public Windimation(java.util.List<T> items, Selector<T> onSelect, Sys sys, final TextDrawer td, int w) {
+	public Windimation(java.util.List<T> items, Selector<T> onSelect, final TextDrawer td, int w) {
 		super( w, items.size() * td.height());
-		this.sys = sys;
 		this.items = items;
 		this.itemHeight = td.height();
 		this.onSelect = onSelect;
@@ -49,9 +47,8 @@ public class Windimation<T> extends BaseWidget implements Controllable {
 		};
  	}
 
-	public Windimation(java.util.List<T> items, Selector<T> onSelect, Sys sys, ItemDrawer<T> itemDrawer, CursorDrawer cursorDrawer, int itemHeight, int w) {
+	public Windimation(java.util.List<T> items, Selector<T> onSelect, ItemDrawer<T> itemDrawer, CursorDrawer cursorDrawer, int itemHeight, int w) {
 		super(w, items.size() * itemHeight);
-		this.sys = sys;
 		this.items = items;
 		this.itemHeight = itemHeight;
 		this.onSelect = onSelect;
@@ -64,7 +61,7 @@ public class Windimation<T> extends BaseWidget implements Controllable {
 		int yy = 0;
 		int num = 0;
 		for (T t : items) {
-			if(num == selected) ShapeDrawer.rect(sys, 0, num*itemHeight, this.w, itemHeight, 0, highlightColor);
+			if(num == selected) ShapeDrawer.rect( 0, num*itemHeight, this.w, itemHeight, 0, highlightColor);
 			itemDrawer.draw(t, 0, yy);
 			yy+=itemHeight;
 			num++;

@@ -16,11 +16,12 @@ public class TextDrawerFixed implements TextDrawer {
 	private final int charWidth;
 	private final int charHeight;
 	private final int stepping;
-	private final Sys sys;
+
+	public static final TextDrawerFixed DEFAULT = new TextDrawerFixed( -1, 6, 6, 6);
 	
-	public TextDrawerFixed(Sys sys, int sheetNum, int charWidth, int charHeight, int stepping) {
+	
+	public TextDrawerFixed(int sheetNum, int charWidth, int charHeight, int stepping) {
 		super();
-		this.sys = sys;
 		this.sheetNum = sheetNum;
 		this.charWidth = charWidth;
 		this.charHeight = charHeight;
@@ -52,7 +53,7 @@ public class TextDrawerFixed implements TextDrawer {
 			int dx = c % 16;
 			int dy = c / 16;
 			
-			sys.draw(sheetNum, x+i*stepping, y, dx*charWidth, dy*charHeight, charWidth, charHeight, 0, 0);
+			Sys.draw(sheetNum, x+i*stepping, y, dx*charWidth, dy*charHeight, charWidth, charHeight, 0, 0);
 		
 		}
 		return b.length * stepping;

@@ -4,9 +4,9 @@ import com.github.msx80.omicron.api.Sys;
 
 public class SpriteSheet {
 
-	int spriteWidth;
-	int spriteHeight;
-	int spritesPerRow;
+	public int spriteWidth;
+	public int spriteHeight;
+	public int spritesPerRow;
 	
 	public SpriteSheet(int spriteWidth, int spriteHeight, int spritesPerRow) {
 		super();
@@ -15,12 +15,12 @@ public class SpriteSheet {
 		this.spritesPerRow = spritesPerRow;
 	}
 	
-	public void draw(Sys sys, int sheet, int x, int y, int sprite, int rotate, int flip)
+	public void draw(int sheet, int x, int y, int sprite, int rotate, int flip)
 	{
 		int spritex = (sprite % spritesPerRow) * spriteWidth;
 		int spritey = (sprite / spritesPerRow) * spriteHeight;
 		
-		sys.draw(sheet, x, y, spritex, spritey, spriteWidth, spriteHeight, rotate, flip);
+		Sys.draw(sheet, x, y, spritex, spritey, spriteWidth, spriteHeight, rotate, flip);
 	}
 
 }

@@ -1,10 +1,20 @@
 package com.github.msx80.omicron.basicutils.text.richtext;
 
+import com.github.msx80.omicron.basicutils.text.TextDrawer;
 import com.github.msx80.omicron.basicutils.text.TextDrawer.Align;
 
 public class Richprint {
 	
-	public static void print(Richtext[] lines, int x, int y, int lineSpacing, RichtextDrawingContext ctx, Align align)
+	/**
+	 * Print some lines of Richtext.
+	 * @param lines
+	 * @param x
+	 * @param y
+	 * @param lineSpacing
+	 * @param ctx
+	 * @param align
+	 */
+	public static void print(Richtext[] lines, int x, int y, int lineSpacing, TextDrawer ctx, Align align)
 	{
 		for (int i = 0; i < lines.length; i++) {
 			
@@ -22,7 +32,7 @@ public class Richprint {
 	 * @param font
 	 * @param align
 	 */
-	public static void print(Richtext line, int x, int y, RichtextDrawingContext ctx, Align align)
+	public static void print(Richtext line, int x, int y, TextDrawer ctx, Align align)
 	{
 	    	if(align == Align.LEFT)
 	    	{

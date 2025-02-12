@@ -17,18 +17,18 @@ public class TextDrawerVariable implements TextDrawer {
 	
 	private static final Charset charset = Charset.forName("Cp437");
 	
+	public static final TextDrawerVariable DEFAULT = new TextDrawerVariable(1, 6, 6, 3);
+	
 	private final int sheetNum;
 	private final int charWidth;
 	private final int charHeight;
 	private final int whitespaceWidth;
-	private final Sys sys;
 	private int[] offStart = new int[256];
 	private int[] offEnd = new int[256];
 
 	
-	public TextDrawerVariable(Sys sys, int sheetNum, int charWidth, int charHeight, int whitespaceWidth) {
+	public TextDrawerVariable(int sheetNum, int charWidth, int charHeight, int whitespaceWidth) {
 		super();
-		this.sys = sys;
 		this.sheetNum = sheetNum;
 		this.charWidth = charWidth;
 		this.charHeight = charHeight;
@@ -78,7 +78,7 @@ public class TextDrawerVariable implements TextDrawer {
 	}
 	private boolean isColumnBlank(int dx, int dy, int charHeight2) {
 		for (int y = dy; y < dy+charHeight2; y++) {
-			int n = sys.getPix(sheetNum, dx, y);
+			int n = Sys.getPix(sheetNum, dx, y);
 			if(Colors.alpha(n) > 0)
 			{
 				return false;
@@ -116,7 +116,7 @@ public class TextDrawerVariable implements TextDrawer {
 			int oe = offEnd[c];
 			int rw = oe-os;
 			
-			sys.draw(sheetNum, x+pos, y, dx*charWidth + os, dy*charHeight, rw , charHeight, 0, 0);
+			Sys.draw(sheetNum, x+pos, y, dx*charWidth + os, dy*charHeight, rw , charHeight, 0, 0);
 			
 			pos = pos + rw +1;
 		

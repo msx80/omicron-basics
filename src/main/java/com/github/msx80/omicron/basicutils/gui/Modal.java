@@ -19,9 +19,12 @@ public class Modal extends ManagedParentWidget implements Clickable, Backgrounde
 
 	private Background bg = new AlphaColor(0, Colors.from(0, 0, 0, 64));
 
-	public Modal(Sys sys, int screenWidth, int screenHeight) {
-		super(sys, screenWidth, screenHeight);
+	public Modal(int screenWidth, int screenHeight) {
+		super(screenWidth, screenHeight);
 	}
+//	public Modal(Sys sys) {
+//		super(sys, Integer.MAX_VALUE, Integer.MAX_VALUE);
+//	}
 
 	@Override
 	public boolean isInside(int px, int py) {
@@ -36,8 +39,8 @@ public class Modal extends ManagedParentWidget implements Clickable, Backgrounde
 
 	@Override
 	public void draw() {
-		bg.draw(sys, 0, 0, w, h);
-		sys.color(Colors.WHITE);
+		bg.draw(0, 0, w, h); // this is really the whole screen
+		Sys.color(Colors.WHITE);
 		super.draw();
 	}
 	

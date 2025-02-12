@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.github.msx80.omicron.basicutils.Colors;
+import com.github.msx80.omicron.basicutils.text.TextDrawer;
 
 /**
  * Represent a rich text, with colored strings, icons and/or custom elements.
@@ -71,7 +72,7 @@ public class Richtext implements Iterable<RichtextItem> {
 		return new ArrayIterator<>(tokens);
 	}
 	
-	public int width(RichtextDrawingContext ctx) {
+	public int width(TextDrawer ctx) {
 		int num = 0;
 		for (RichtextItem cs : this.tokens) {
 			num += cs.width(ctx);
@@ -79,8 +80,8 @@ public class Richtext implements Iterable<RichtextItem> {
 		return num;
 	}
 	
-	public int height(RichtextDrawingContext ctx) {
-		int h = ctx.getDefaultTextDrawer().height(); // default to a minimum of the current font height
+	public int height(TextDrawer ctx) {
+		int h = ctx.height(); // default to a minimum of the current font height
 		for (RichtextItem cs : this.tokens) {
 			int hh = cs.height(ctx);
 			if(hh>h) h = hh;

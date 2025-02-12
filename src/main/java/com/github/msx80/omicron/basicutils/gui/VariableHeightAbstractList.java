@@ -92,7 +92,7 @@ public abstract class VariableHeightAbstractList<T> extends AbstractList<T> {
 	protected void init()
 	{
 		currentTotalHeight = calcTotalHeight();
-		this.setSize(w, currentTotalHeight);
+		this.size(w, currentTotalHeight);
 	}
 	
 	private int calcTotalHeight() {
@@ -200,6 +200,6 @@ public abstract class VariableHeightAbstractList<T> extends AbstractList<T> {
 	{
 		idxCache.invalidate();
 		currentTotalHeight = calcTotalHeight();
-		this.setSize(w, currentTotalHeight);
+		this.size(w, currentTotalHeight);
 	}
 }

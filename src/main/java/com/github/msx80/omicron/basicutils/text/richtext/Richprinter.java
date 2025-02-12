@@ -1,14 +1,15 @@
 package com.github.msx80.omicron.basicutils.text.richtext;
 
+import com.github.msx80.omicron.basicutils.text.TextDrawer;
 import com.github.msx80.omicron.basicutils.text.TextDrawer.Align;
 
 public class Richprinter {
 
-	private RichtextDrawingContext ctx;
+	private TextDrawer ctx;
 	private Align align;
 	private int lineSpacing;
 		
-	public Richprinter(RichtextDrawingContext ctx, Align align, int lineSpacing) 
+	public Richprinter(TextDrawer ctx, Align align, int lineSpacing) 
 	{
 		super();
 		this.ctx = ctx;

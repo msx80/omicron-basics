@@ -13,7 +13,7 @@ public class MoveToAnimation extends CoordAnimation {
 
 	@Override
 	public void update(int x, int y) {
-		p.setPosition(x, y);
+		p.position(x, y);
 	}
 
 

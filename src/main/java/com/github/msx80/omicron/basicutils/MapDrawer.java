@@ -85,27 +85,33 @@ public class MapDrawer {
 		public int getHeight() {
 			return height;
 		}
+
+
+		public int[] getData() {
+			return mapData;
+			
+		}
 		
 	}
 	
-	private Sys sys;
+
 	private int tileWidth;
 	private int tileHeight;
-	private final MapData map;
+	private MapData map;
 	private int tilesPerRowOnSheet;
 
-	public MapDrawer(Sys sys, int tileWidth, int tileHeight, int tilesPerRowOnSheet, int[][] mapData)
+	public MapDrawer(int tileWidth, int tileHeight, int tilesPerRowOnSheet, int[][] mapData)
 	{
-		this.sys = sys;
+		
 		this.tileWidth = tileWidth;
 		this.tileHeight = tileHeight;
 		this.tilesPerRowOnSheet = tilesPerRowOnSheet;
 		this.map = new MapDataMatrix(mapData);
 	}
 	
-	public MapDrawer(Sys sys, int tileWidth, int tileHeight, int tilesPerRowOnSheet, MapData mapData)
+	public MapDrawer(int tileWidth, int tileHeight, int tilesPerRowOnSheet, MapData mapData)
 	{
-		this.sys = sys;
+		
 		this.tileWidth = tileWidth;
 		this.tileHeight = tileHeight;
 		this.tilesPerRowOnSheet = tilesPerRowOnSheet;
@@ -134,7 +140,7 @@ public class MapDrawer {
 						int dx = c % tilesPerRowOnSheet;
 						int dy = c / tilesPerRowOnSheet;
 						
-						sys.draw(tileSheetNum, destx + x*tileWidth, desty + y*tileHeight, dx*tileWidth, dy*tileHeight, tileWidth, tileHeight, 0, 0);
+						Sys.draw(tileSheetNum, destx + x*tileWidth, desty + y*tileHeight, dx*tileWidth, dy*tileHeight, tileWidth, tileHeight, 0, 0);
 					}
 				}
 			}
@@ -165,5 +171,15 @@ public class MapDrawer {
 		y /= tileHeight;
 		return map.getTile(x, y);
 	}
+
+	public void setMap(MapData map) {
+		this.map = map;
+	}
+
+	public void setTilesPerRowOnSheet(int tilesPerRowOnSheet) {
+		this.tilesPerRowOnSheet = tilesPerRowOnSheet;
+	}
+	
+	
 	
 }

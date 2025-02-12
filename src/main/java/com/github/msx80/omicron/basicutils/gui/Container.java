@@ -1,8 +1,5 @@
 package com.github.msx80.omicron.basicutils.gui;
 
-import com.github.msx80.omicron.api.Sys;
-
-import com.github.msx80.omicron.basicutils.ShapeDrawer;
 import com.github.msx80.omicron.basicutils.gui.drawers.Background;
 import com.github.msx80.omicron.basicutils.gui.drawers.Backgrounded;
 import com.github.msx80.omicron.basicutils.gui.drawers.OutlineRectangle;
@@ -10,25 +7,26 @@ import com.github.msx80.omicron.basicutils.palette.Tic80;
 
 public class Container extends ManagedParentWidget implements Backgrounded {
 
-	protected Sys sys;
 	Background bg = new OutlineRectangle(Tic80.BLUE_GRAY, Tic80.BROWN);
 	
-	public Container(Sys sys)
+	public Container()
 	{
-		super(sys, 0, 0);
-		this.sys = sys;
+		super(0, 0);
 	}
 	
 	
 	@Override
 	public void draw() {
-		bg.draw(sys, 0, 0, w, h);
+		bg.draw(0, 0, w, h);
 		
 		drawChildren();
 	}
 
 	@Override
 	protected void childInvalidated(Widget widget) {
+		
+		// elastically resize to contain all children
+		
 		int mw = 0;
 		int mh = 0;
 		for (Widget w : children()) {
@@ -41,8 +39,8 @@ public class Container extends ManagedParentWidget implements Backgrounded {
 				mh = cy;
 			}
 		}
-		this.w = mw;
-		this.h = mh;
+		this.w = mw+bg.getMargin();
+		this.h = mh+bg.getMargin();
 		invalidate();
 	}
 

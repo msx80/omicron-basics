@@ -8,12 +8,13 @@ public abstract class FixedHeightAbstractList<T> extends AbstractList<T> {
 	
 	public FixedHeightAbstractList(int w) {
 		super(w, 10);
+		
 	}
 
 	protected void init()
 	{
 		this.itemsHeight = itemsHeight();
-		this.setSize(w, itemsCount() * itemsHeight);
+		this.size(w, itemsCount() * itemsHeight);
 	}
 	
 	@Override

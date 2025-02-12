@@ -14,9 +14,9 @@ public class AlphaColor implements Background {
 	}
 
 	@Override
-	public void draw(Sys sys, int x, int y, int w, int h) {
-		sys.color(color);
-		sys.fill(0, 0, 0, w, h, Colors.WHITE);
+	public void draw(int x, int y, int w, int h) {
+		Sys.color(color);
+		Sys.fill(0, 0, 0, w, h, Colors.WHITE);
 
 	}
 

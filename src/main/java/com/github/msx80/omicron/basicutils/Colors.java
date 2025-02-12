@@ -33,4 +33,10 @@ public class Colors
 	{
 		return c & 0xFF;
 	}
+	
+	public static void main(String[] args)
+	{
+		System.out.println(Colors.BLACK);
+		System.out.println(Colors.RED);
+	}
 }

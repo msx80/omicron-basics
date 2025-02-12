@@ -11,8 +11,8 @@ import com.github.msx80.omicron.api.Sys;
  */
 public abstract class ManagedParentWidget extends ParentWidget {
 
-	public ManagedParentWidget(Sys sys, int w, int h) {
-		super(sys, w, h);
+	public ManagedParentWidget(int w, int h) {
+		super(w, h);
 	}
 
 	List<Widget> children = new ArrayList<Widget>();
@@ -32,20 +32,29 @@ public abstract class ManagedParentWidget extends ParentWidget {
 	 */
 	public <T extends Widget> T add(T w, int x, int y)
 	{
-		children.add(w);
-		w.setParent(this);
-		w.setPosition(x, y);
-		w.invalidate();
+		children.add(w.parent(this).position(x, y));
+		childInvalidated(w);
 		return w;
 	}
-
+	
+	public <T extends Widget> T add(T w)
+	{
+		children.add(w.parent(this));
+		childInvalidated(w);
+		return w;
+	}
+	
 	@Override
 	public Widget remove(Widget w)
 	{
 		children.remove(w);
-		w.setParent(null);
+		w.parent(null);
 		return w;
 	}
+	
+
+	
+	
 	
 	public void zMove(Widget w, boolean up)
 	{

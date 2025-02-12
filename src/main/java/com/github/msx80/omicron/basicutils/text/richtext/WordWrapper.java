@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import com.github.msx80.omicron.basicutils.text.TextDrawer;
+
 class Buffer
 {
 	List<Richtext> lines = new ArrayList<Richtext>();
@@ -69,18 +71,18 @@ class Buffer
 		currentWidth += spaceSpace;
 		concat(color," ");
 	}
-	public void pushWord(int color, String word, RichtextDrawingContext ctx, int width)
+	public void pushWord(int color, String word, TextDrawer ctx, int width)
 	{
 		// push a single word. If there's space, add it to the end, otherwise issue a newline and recurse.
 		if(buffer.size() == 0)
 		{
 			// if it's empty, always add the first word (otherwise if it's wider than width it will loop forever)
 			concat(color, word);
-			currentWidth = ctx.getDefaultTextDrawer().width(word);
+			currentWidth = ctx.width(word);
 		}
 		else
 		{
-			int w = ctx.getDefaultTextDrawer().width(word);
+			int w = ctx.width(word);
 			if(w+currentWidth > width)
 			{
 				// overflow, flush line and recurse
@@ -95,7 +97,7 @@ class Buffer
 			}
 		}
 	}
-	public void pushFixedItem(RichtextItem next, RichtextDrawingContext ctx, int width) {
+	public void pushFixedItem(RichtextItem next, TextDrawer ctx, int width) {
 		int w = next.width(ctx);
 		if(w+currentWidth > width)
 		{
@@ -125,9 +127,9 @@ public class WordWrapper {
 	 * @param width width at which to wrap the text
 	 * @return An array of Richtext, each item is a line to render. Each line should not exceed "width" (unless a single word exceed it)
 	 */
-	public static Richtext[] wrap(Richtext text, RichtextDrawingContext ctx, int width)
+	public static Richtext[] wrap(Richtext text, TextDrawer ctx, int width)
 	{
-		int spaceSpace = ctx.getDefaultTextDrawer().width(" ");
+		int spaceSpace = ctx.width(" ");
 		Buffer b = new Buffer();
 		dowrap(text, b, ctx, width, spaceSpace);
 		
@@ -140,7 +142,7 @@ public class WordWrapper {
 		return b.lines.toArray(new Richtext[b.lines.size()]);
 	}
 
-	private static void dowrap(Richtext text, Buffer b, RichtextDrawingContext ctx, int width, int spaceSpace) {
+	private static void dowrap(Richtext text, Buffer b, TextDrawer ctx, int width, int spaceSpace) {
 		// push all lines into the buffer taking newlines into account
 		for (int i = 0; i < text.size(); i++) {
 			RichtextItem next = text.item(i);
@@ -149,7 +151,7 @@ public class WordWrapper {
 		
 	}
 
-	private static void pushWithNewlines(Buffer b, RichtextItem next, int width, RichtextDrawingContext ctx, int spaceSpace) {
+	private static void pushWithNewlines(Buffer b, RichtextItem next, int width, TextDrawer ctx, int spaceSpace) {
 		
 		// split the items containing newlines to divide the string. Use newLine to issue a new line to the buffer
 		// and push the unbroken lines.
@@ -174,7 +176,7 @@ public class WordWrapper {
 		}
 	}
 
-	private static void pushString(Buffer b, ColoredString cs, int width, RichtextDrawingContext ctx, int spaceSpace) {
+	private static void pushString(Buffer b, ColoredString cs, int width, TextDrawer ctx, int spaceSpace) {
 		// push a string in the buffer, passing words and spaces one at a time.
 		String[] words = REGEX_SPACES.split(cs.text);
 		for (int i = 0; i < words.length; i++) {

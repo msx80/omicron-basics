@@ -21,14 +21,14 @@ public class StandardScrollbarDrawer implements ScrollbarDrawer {
 		return width;
 	}
 	
-	public void drawHorizontalScrollbar(Sys sys, int sx, int sy, int sw, int curPos, int curLen) {
-		sys.fill(0, sx+curPos, sy, curLen, getThickness(), curColor);
-		ShapeDrawer.outline(sys, sx, sy,sw, getThickness(), 0, outlineColor);
+	public void drawHorizontalScrollbar(int sx, int sy, int sw, int curPos, int curLen) {
+		Sys.fill(0, sx+curPos, sy, curLen, getThickness(), curColor);
+		ShapeDrawer.outline( sx, sy,sw, getThickness(), 0, outlineColor);
 	}
 
-	public void drawVerticalScrollbar(Sys sys, int sx, int sy, int sh, int curPos, int curLen) {
-		sys.fill(0, sx, sy+curPos, getThickness(), curLen, curColor);
-		ShapeDrawer.outline(sys,sx, sy, getThickness(), sh, 0, outlineColor);
+	public void drawVerticalScrollbar(int sx, int sy, int sh, int curPos, int curLen) {
+		Sys.fill(0, sx, sy+curPos, getThickness(), curLen, curColor);
+		ShapeDrawer.outline(sx, sy, getThickness(), sh, 0, outlineColor);
 	}
 
 	@Override
