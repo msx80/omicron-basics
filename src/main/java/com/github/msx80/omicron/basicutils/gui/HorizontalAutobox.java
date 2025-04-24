@@ -3,12 +3,12 @@ package com.github.msx80.omicron.basicutils.gui;
 import com.github.msx80.omicron.basicutils.gui.drawers.Background;
 import com.github.msx80.omicron.basicutils.gui.drawers.Backgrounded;
 
-public class VerticalAutobox extends ManagedParentWidget{
+public class HorizontalAutobox extends ManagedParentWidget{
 
 
 	private int spacing;
 
-	public VerticalAutobox(int spacing) {
+	public HorizontalAutobox(int spacing) {
 		super(10, 10);
 		this.spacing = spacing;
 
@@ -21,26 +21,25 @@ public class VerticalAutobox extends ManagedParentWidget{
 		repositionComponents();
 		return c;
 	}
-
-	private void repositionComponents() {
-		int y = 0;
-		int maxW = 0;
-		for (Widget w : this.children) {
-			w.position(0, y);
-			y+=w.getH()+spacing;
-			maxW = Math.max(maxW, w.getW());
-		}
-		y=y-spacing;
-		this.size(maxW, y);
-		invalidate();
-	}
-
-	public VerticalAutobox addSpacer(int size)
+	public HorizontalAutobox addSpacer(int size)
 	{
-		this.add(new Spacer(1, size));
+		this.add(new Spacer(size, 1));
 		return this;
 	}
 	
+	private void repositionComponents() {
+		int x = 0;
+		int maxH = 0;
+		for (Widget w : this.children) {
+			w.position(x, 0);
+			x+=w.getW()+spacing;
+			maxH = Math.max(maxH, w.getH());
+		}
+		x=x-spacing;
+		this.size(x, maxH);
+		invalidate();
+	}
+
 	@Override
 	public <T extends Widget> T add(T w) {
 		
@@ -53,14 +52,12 @@ public class VerticalAutobox extends ManagedParentWidget{
 	protected void childInvalidated(Widget widget) {
 	
 	}
-	
-	public static VerticalAutobox of(int spacing, Widget... widgets)
+	public static HorizontalAutobox of(int spacing, Widget... widgets)
 	{
-		VerticalAutobox v = new VerticalAutobox(spacing);
+		HorizontalAutobox v = new HorizontalAutobox(spacing);
 		for (Widget widget : v) {
 			v.add(widget);
 		}
 		return v;
-	}
-	
+	}	
 }
