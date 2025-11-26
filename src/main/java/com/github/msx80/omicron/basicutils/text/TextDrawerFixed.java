@@ -10,7 +10,7 @@ import com.github.msx80.omicron.api.Sys;
  */
 public class TextDrawerFixed implements TextDrawer {
 		
-	private static final Charset charset = Charset.forName("Cp437");
+	private static final Charset charset = TextDrawer.getCharset();
 	
 	private final int sheetNum;
 	private final int charWidth;
@@ -27,6 +27,7 @@ public class TextDrawerFixed implements TextDrawer {
 		this.charHeight = charHeight;
 		this.stepping = stepping;
 	}
+	
 	@Override
 	public int print(String text, int x, int y, Align align)
 	{

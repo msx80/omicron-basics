@@ -15,7 +15,7 @@ import com.github.msx80.omicron.basicutils.Colors;
 public class TextDrawerVariable implements TextDrawer {
 	
 	
-	private static final Charset charset = Charset.forName("Cp437");
+	private static final Charset charset = TextDrawer.getCharset();
 	
 	public static final TextDrawerVariable DEFAULT = new TextDrawerVariable(1, 6, 6, 3);
 	
