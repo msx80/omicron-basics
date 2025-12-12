@@ -27,13 +27,19 @@ public class Pattern implements Background{
 		for (int px = x; px < x+w; px+=side) {
 			boolean flip = start;
 			for (int py = y; py < y+h; py+=side) {
-				int col = flip ? colorA : colorB;
 				flip = ! flip;
-				Sys.fill(0, px, py, side, side, col);
+				if(flip) Sys.fill(0, px, py, side, side, colorB);
 			}
 			start = !start;
-			// flip = ! flip;
-			
+		}
+		start = false;
+		for (int px = x; px < x+w; px+=side) {
+			boolean flip = start;
+			for (int py = y; py < y+h; py+=side) {
+				flip = ! flip;
+				if(!flip) Sys.fill(0, px, py, side, side, colorA);
+			}
+			start = !start;
 		}
 		
 	}
