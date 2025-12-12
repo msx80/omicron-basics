@@ -178,6 +178,15 @@ public class WidgetManager extends ManagedParentWidget implements KeyboardListen
 		return w;
 	}
 	
+	public Widget addModal(Widget w)
+	{
+		w.position (this.w / 2 - w.getW()/2, this.h / 2 - w.getH()/2);
+		Modal mod = new Modal(this.w, this.h);
+		mod.add(w);
+		this.add(mod);
+		return w;
+	}
+	
 	public void enableKeyboardInput()
 	{
 		AdvancedSys a;
@@ -205,5 +214,9 @@ public class WidgetManager extends ManagedParentWidget implements KeyboardListen
 		if(focused == null)	return false; 
 		return focused.keyTyped(character);
 	}
-	
+
+	public boolean isEmpty()
+	{
+		return children.isEmpty();
+	}
 }

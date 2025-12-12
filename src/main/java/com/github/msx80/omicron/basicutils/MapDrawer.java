@@ -134,7 +134,13 @@ public class MapDrawer {
 			for (int y = 0; y < theight; y++) {
 				for (int x = 0; x < twidth; x++) {
 					
-					int c = map.getTile(x+srctx, y+srcty);
+					int tx = x+srctx;
+					int ty = y+srcty;
+					int c; 
+					if(tx<map.getWidth() && ty<map.getHeight()) // todo calculate outside to clamp theight and twidth
+						c = map.getTile(tx, ty);
+					else
+						c = -1;
 					if(c>=0)
 					{
 						int dx = c % tilesPerRowOnSheet;

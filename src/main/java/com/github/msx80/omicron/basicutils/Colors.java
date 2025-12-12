@@ -34,9 +34,59 @@ public class Colors
 		return c & 0xFF;
 	}
 	
+	public static int red(int c)
+	{
+		return ( c >> 24 ) & 0xFF;
+	}
+	
+	public static int green(int c)
+	{
+		return ( c >> 16 ) & 0xFF;
+	}
+	
+	public static int blue(int c)
+	{
+		return ( c >> 8 ) & 0xFF;
+	}
+	
+	
 	public static void main(String[] args)
 	{
 		System.out.println(Colors.BLACK);
 		System.out.println(Colors.RED);
 	}
+	
+	public static double colorDistance(int c1, int c2)
+	{
+		
+	    int red1 = red(c1);
+	    int red2 = red(c2);
+	    int rmean = (red1 + red2) >> 1;
+	    int r = red1 - red2;
+	    int g = green(c1) - green(c2);
+	    int b = blue(c1) - blue(c2);
+	    return (((512+rmean)*r*r)>>8) + 4*g*g + (((767-rmean)*b*b)>>8);
+		/*
+	    int r = red(c1) - red(c2);
+	    int g = green(c1) - green(c2);
+	    int b = blue(c1) - blue(c2);
+	    return r^2 + b^2 + g^2;
+	    */
+	}
+	
+	public static int nearest(int color, int[] candidates)
+	{
+		double min = Double.MAX_VALUE;
+		int idx = -1;
+		for (int i = 0; i < candidates.length; i++) {
+			double dist = colorDistance(color, candidates[i]);
+			if(dist<min)
+			{
+				min = dist;
+				idx = i;
+			}
+		}
+		return idx;
+	}
+	
 }
