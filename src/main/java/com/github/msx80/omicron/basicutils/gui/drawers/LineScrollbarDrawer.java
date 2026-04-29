@@ -32,7 +32,7 @@ public class LineScrollbarDrawer implements ScrollbarDrawer {
 
 	@Override
 	public int getBorder() {
-		return 1;
+		return 0;
 	}
 
 }

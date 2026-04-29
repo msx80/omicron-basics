@@ -5,9 +5,9 @@ import java.util.LinkedList;
 import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 
-public class AnimationManager {
+public class AnimationManager 
+{
 	private LinkedList<IAnimation> animations = new LinkedList<IAnimation>();
-	
 	
 	public void update()
 	{
@@ -19,7 +19,6 @@ public class AnimationManager {
 		{
 			animations.removeFirst();
 		}
-		
 	}
 	
 	public Animation add(Easing easing, int ttl, Consumer<IAnimation> onEnd, Consumer<IAnimation> onUpdate)

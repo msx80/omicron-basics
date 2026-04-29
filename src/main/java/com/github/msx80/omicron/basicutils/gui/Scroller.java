@@ -49,6 +49,7 @@ public class Scroller extends OnlyChildParent implements Scrollable
 				curLength = (int) (visibleArea * scrollBarCursorArea);
 				double pos = scroll/(double)(maxScroll);
 				curPos = border + (int) (pos * (scrollBarCursorArea-curLength));
+				
 			}
 					
 		}

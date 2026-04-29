@@ -17,7 +17,7 @@ public class TextDrawerVariable implements TextDrawer {
 	
 	private static final Charset charset = TextDrawer.getCharset();
 	
-	public static final TextDrawerVariable DEFAULT = new TextDrawerVariable(1, 6, 6, 3);
+	public static final TextDrawerVariable DEFAULT = new TextDrawerVariable(-1, 6, 6, 3);
 	
 	private final int sheetNum;
 	private final int charWidth;

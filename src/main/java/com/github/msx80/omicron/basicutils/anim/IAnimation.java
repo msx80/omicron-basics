@@ -9,7 +9,7 @@ public interface IAnimation
 	
 	/**
 	 * Advance the animation, if it's the case the method should call onBegin and onEnd
-	 * @returntrue if the animation is finished, false otherwise
+	 * @return true if the animation is finished, false otherwise
 	 */
 	public boolean advance();
 	

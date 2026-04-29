@@ -4,6 +4,10 @@ public interface ScrollbarDrawer {
 
 	public int getThickness();
 
+	/**
+	 * The lateral borders, at the beginning and end of the scrollbar
+	 * @return
+	 */
 	public int getBorder();
 	
 	public void drawHorizontalScrollbar(int sx, int sy, int sw, int curPos, int curLen);
