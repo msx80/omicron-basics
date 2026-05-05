@@ -1,6 +1,5 @@
 package com.github.msx80.omicron.basicutils.gui;
 
-import com.github.msx80.omicron.api.Sys;
 import com.github.msx80.omicron.basicutils.Colors;
 import com.github.msx80.omicron.basicutils.gui.drawers.Background;
 import com.github.msx80.omicron.basicutils.gui.drawers.Backgrounded;

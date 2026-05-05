@@ -3,8 +3,6 @@ package com.github.msx80.omicron.basicutils.gui;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.msx80.omicron.api.Sys;
-
 /**
  * An abstract parent that manages the "list" of children and the add method.  
  *
